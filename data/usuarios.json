@@ -1,0 +1,46 @@
+[ "br.com.egressos.infrastructure.UsuarioFileRepository$Box", {
+  "usuarios" : [ "java.util.ArrayList", [ [ "br.com.egressos.domain.Egresso", {
+    "email" : "egresso@exemplo.com",
+    "nome" : "Maria Egresso",
+    "senhaHash" : "e34c9ce47b7a8cef2cd1766396ad1db5237cf2dfd4807b41c0015d6cde1541bb",
+    "senhaTemporaria" : true,
+    "ativo" : true,
+    "nascimento" : null,
+    "anoConclusao" : null,
+    "githubURL" : null,
+    "redes" : [ "java.util.ArrayList", [ ] ]
+  } ], [ "br.com.egressos.domain.Egresso", {
+    "email" : "egresso2@exemplo.com",
+    "nome" : "Maria Egresso",
+    "senhaHash" : "f9df01398f83543e2dc7aafc5a80a627187a18d499a0d160b8567ad05c5e5385",
+    "senhaTemporaria" : true,
+    "ativo" : true,
+    "nascimento" : null,
+    "anoConclusao" : null,
+    "githubURL" : null,
+    "redes" : [ "java.util.ArrayList", [ ] ]
+  } ], [ "br.com.egressos.domain.Egresso", {
+    "email" : "egresso3@exemplo.com",
+    "nome" : "Maria Egresso",
+    "senhaHash" : "0117c2a63b6e615537a57cc1b9f8848e055cfd6db84410048f4065a53f4e7493",
+    "senhaTemporaria" : true,
+    "ativo" : true,
+    "nascimento" : null,
+    "anoConclusao" : null,
+    "githubURL" : null,
+    "redes" : [ "java.util.ArrayList", [ ] ]
+  } ], [ "br.com.egressos.domain.Egresso", {
+    "email" : "egresso4@exemplo.com",
+    "nome" : "Maria Egresso",
+    "senhaHash" : "b0d1474fa58648cf0315a621ee360666a33a4432e7c4acfc2586817459c46705",
+    "senhaTemporaria" : false,
+    "ativo" : true,
+    "nascimento" : [ 1995, 5, 10 ],
+    "anoConclusao" : 2019,
+    "githubURL" : "https://github.com/maria",
+    "redes" : [ "java.util.ArrayList", [ [ "br.com.egressos.domain.RedeSocial", {
+      "tipo" : "LINKEDIN",
+      "url" : "https://linkedin.com/in/maria"
+    } ] ] ]
+  } ] ] ]
+} ]
