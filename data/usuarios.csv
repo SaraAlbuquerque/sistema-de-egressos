@@ -1,0 +1,6 @@
+id,email,nome,papel,senha_hash,precisa_trocar_senha,criado_em
+9d5ec5b7-6b24-4bcc-b946-d7b663f4828b,admin@fct.br,Coordenador,COORDENADOR,JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=,1,2025-10-28T03:30:27.392338200Z
+69a05c19-44b9-48bc-a30b-e591e7ecae61,pe-dro2000@live.com,Pedro Coleta,EGRESSO,pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=,0,2025-10-28T03:54:10.973416300Z
+9c19b796-dc2c-42bf-8318-b9b60dba20ed,pe-dro2001@live.com,Pedro Dela,EGRESSO,jlx3m+2srhybVmGan798DtrbX3093yRWskiYKqB7KZw=,0,2025-10-28T04:03:43.614508800Z
+364d57e2-9d8b-4083-8e1a-23a1aaf89dbe,coletapedro@gmail.com,Coleta,EGRESSO,Wono5ejx6Ip9oBfWUiPNUT11nBVG3JvBCeWt//onh2M=,0,2025-10-30T07:12:07.475783900Z
+afea4b65-43a0-4928-ae7e-03cc24302f28,giovanapessoa1@gmail.com,Giovana,EGRESSO,mYYJXZuJNcr7i6PTHa2C6A5QJ05CGH/9P5W1j0qbMeY=,0,2025-10-30T07:50:49.551193300Z
