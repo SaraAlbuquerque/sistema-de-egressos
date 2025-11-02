@@ -3,9 +3,11 @@ package com.egressos.ui;
 import com.egressos.dao.EgressosDao;
 import com.egressos.dao.EventosDao;
 import com.egressos.dao.UsuariosDao;
+import com.egressos.dao.VisualizacoesDocenteDao;
 import com.egressos.model.EgressoProfile;
 import com.egressos.model.EventoChave;
 import com.egressos.model.Usuario;
+import com.egressos.model.Papel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,9 @@ public class DocenteFrame extends JFrame {
     private final UsuariosDao usuariosDao = new UsuariosDao();
     private final EgressosDao egressosDao = new EgressosDao();
     private final EventosDao eventosDao = new EventosDao();
+    private final VisualizacoesDocenteDao visDao = new VisualizacoesDocenteDao();
+
+    private final Usuario docenteRef;
 
     // filtros
     private final JTextField nomeField = new JTextField();
@@ -38,13 +43,16 @@ public class DocenteFrame extends JFrame {
         @Override public boolean isCellEditable(int r, int c) { return false; }
     };
     private final JTable table = new JTable(model);
+    private final DefaultTableModel recentesModel = new DefaultTableModel(
+            new Object[]{"Quando","Egresso"},0){ @Override public boolean isCellEditable(int r,int c){return false;}};
 
     private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public DocenteFrame(Usuario docente) {
         super("Egressos — Consulta (Docente)");
+        this.docenteRef = docente;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 600);
+        setSize(1100, 650);
         setLocationRelativeTo(null);
 
         setJMenuBar(buildMenu());
@@ -53,10 +61,22 @@ public class DocenteFrame extends JFrame {
         add(filtros, BorderLayout.NORTH);
 
         table.setAutoCreateRowSorter(true);
-        add(new JScrollPane(table), BorderLayout.CENTER);
+
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        split.setResizeWeight(0.8);
+        split.setLeftComponent(new JScrollPane(table));
+        split.setRightComponent(buildRecentesPanel());
+        add(split, BorderLayout.CENTER);
+
+        JPanel south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton verBtn = new JButton("Registrar visualização do selecionado");
+        verBtn.addActionListener(e -> registrarVisualizacaoSelecionada());
+        south.add(verBtn);
+        add(south, BorderLayout.SOUTH);
 
         buscarBtn.addActionListener(e -> aplicarBusca());
-        aplicarBusca(); // primeira carga
+        aplicarBusca();
+        carregarRecentes();
     }
 
     private JMenuBar buildMenu() {
@@ -111,10 +131,42 @@ public class DocenteFrame extends JFrame {
         return p;
     }
 
+    private JPanel buildRecentesPanel(){
+        JPanel p = new JPanel(new BorderLayout());
+        p.add(new JLabel("Últimos egressos visualizados"), BorderLayout.NORTH);
+        JTable t = new JTable(recentesModel);
+        p.add(new JScrollPane(t), BorderLayout.CENTER);
+        return p;
+    }
+
+    private void registrarVisualizacaoSelecionada(){
+        int row = table.getSelectedRow();
+        if (row < 0){ JOptionPane.showMessageDialog(this, "Selecione uma linha."); return; }
+        int m = table.convertRowIndexToModel(row);
+        String email = String.valueOf(model.getValueAt(m, 1));
+        Usuario eg = usuariosDao.listar().stream()
+                .filter(u -> email.equalsIgnoreCase(u.getEmail()))
+                .findFirst().orElse(null);
+        if (eg == null){ JOptionPane.showMessageDialog(this, "Egresso não encontrado."); return; }
+        visDao.registrar(docenteRef.getId(), eg.getId());
+        carregarRecentes();
+    }
+
+    private void carregarRecentes(){
+        recentesModel.setRowCount(0);
+        var ult = visDao.ultimos(docenteRef.getId(), 5);
+        Map<String, Usuario> porId = usuariosDao.listar().stream()
+                .collect(Collectors.toMap(Usuario::getId, u->u));
+        for (var r : ult){
+            Usuario u = porId.get(r.egressoUsuarioId);
+            recentesModel.addRow(new Object[]{ r.ts.toString(), u==null? r.egressoUsuarioId : u.getNome() });
+        }
+    }
+
     private void aplicarBusca() {
         try {
             List<Usuario> usuarios = usuariosDao.listar().stream()
-                    .filter(u -> u.getPapel() == com.egressos.model.Papel.EGRESSO)
+                    .filter(u -> u.getPapel() == Papel.EGRESSO)
                     .collect(Collectors.toList());
 
             Map<String, Usuario> porId = usuarios.stream()
@@ -169,23 +221,27 @@ public class DocenteFrame extends JFrame {
             model.setRowCount(0);
             for (EgressoProfile p : filtrado) {
                 Usuario u = porId.get(p.getUsuarioId());
+                // LGPD: empresa/contato só se permitido
+                String empresa = p.isPermitirExibirEmpresa()? p.getEmpresaAtual() : "";
+                String email = p.isPermitirExibirContato()? u.getEmail() : "(oculto)";
                 List<EventoChave> evs = eventosPorEgresso.getOrDefault(p.getUsuarioId(), Collections.emptyList());
                 String eventosResumo;
                 if (evs.isEmpty()) {
                     eventosResumo = "0";
                 } else {
-                    EventoChave ultimo = evs.stream().max(Comparator.comparing(EventoChave::getData)).orElse(null);
-                    eventosResumo = evs.size() + " (último: " + (ultimo!=null? ultimo.getData().format(DF) : "-") + ")";
+                    EventoChave ultimo = evs.stream().max(Comparator.comparing(EventoChave::getData,
+                            Comparator.nullsLast(Comparator.naturalOrder()))).orElse(null);
+                    eventosResumo = evs.size() + " (último: " + (ultimo!=null && ultimo.getData()!=null? ultimo.getData().format(DF) : "-") + ")";
                 }
                 model.addRow(new Object[]{
                         u.getNome(),
-                        u.getEmail(),
+                        email,
                         p.getCurso(),
                         p.getAnoFormacao(),
                         p.getAreaAtuacao(),
                         p.getEscolaridadeAtual(),
                         p.isEmpregado() ? "Sim" : "Não",
-                        p.getEmpresaAtual(),
+                        empresa,
                         String.format("%s/%s/%s", n(p.getCidade()), n(p.getEstado()), n(p.getPais())),
                         eventosResumo
                 });

@@ -1,1 +1,2 @@
-id,egresso_id,tipo,titulo,descricao,organizacao,data_iso,local,observacoes
+id,egressoId,tipo,titulo,organizacao,local,descricao,observacoes,data
+5cf559ed-3b86-42ab-80ea-a81389cd678e,69a05c19-44b9-48bc-a30b-e591e7ecae61,PUBLICACAO,Aplicação com Machine Learning,Unesp,Unesp,Apenas um teste,,2025-11-02

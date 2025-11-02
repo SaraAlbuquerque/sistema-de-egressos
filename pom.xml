@@ -4,6 +4,15 @@
     <groupId>com.mycompany.egressos</groupId>
     <artifactId>Egressos</artifactId>
     <version>1.0-SNAPSHOT</version>
+    
+    <dependencies>
+        <dependency>
+          <groupId>com.github.librepdf</groupId>
+          <artifactId>openpdf</artifactId>
+          <version>1.3.32</version>
+        </dependency>
+    </dependencies>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>

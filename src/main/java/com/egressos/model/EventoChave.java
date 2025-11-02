@@ -6,33 +6,44 @@ import java.util.UUID;
 public class EventoChave {
     private String id;
     private String egressoId;
-    private String tipo;
+    private TipoEvento tipo; // enum padronizado (retrocompat com setTipo(String))
     private String titulo;
-    private String descricao;
     private String organizacao;
-    private LocalDate data;
     private String local;
-    private String observacoes;
+    private String descricao;
+    private String observacoes; // novo: compatível com seu service
+    private LocalDate data;
 
     public static String newId() { return UUID.randomUUID().toString(); }
 
-    public String getId() { return id; }
-    public String getEgressoId() { return egressoId; }
-    public String getTipo() { return tipo; }
-    public String getTitulo() { return titulo; }
-    public String getDescricao() { return descricao; }
-    public String getOrganizacao() { return organizacao; }
-    public LocalDate getData() { return data; }
-    public String getLocal() { return local; }
-    public String getObservacoes() { return observacoes; }
+    public EventoChave(){}
 
+    public String getId() { return id; }
     public void setId(String id) { this.id = id; }
+
+    public String getEgressoId() { return egressoId; }
     public void setEgressoId(String egressoId) { this.egressoId = egressoId; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+
+    public TipoEvento getTipo() { return tipo; }
+    public void setTipo(TipoEvento tipo) { this.tipo = tipo; }
+    // retrocompat: aceitar String e mapear para enum
+    public void setTipo(String tipoTexto) { this.tipo = TipoEvento.fromString(tipoTexto); }
+
+    public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+
+    public String getOrganizacao() { return organizacao; }
     public void setOrganizacao(String organizacao) { this.organizacao = organizacao; }
-    public void setData(LocalDate data) { this.data = data; }
+
+    public String getLocal() { return local; }
     public void setLocal(String local) { this.local = local; }
+
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
+
+    public String getObservacoes() { return observacoes; }
     public void setObservacoes(String observacoes) { this.observacoes = observacoes; }
+
+    public LocalDate getData() { return data; }
+    public void setData(LocalDate data) { this.data = data; }
 }

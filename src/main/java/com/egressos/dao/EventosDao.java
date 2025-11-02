@@ -1,69 +1,96 @@
 package com.egressos.dao;
 
 import com.egressos.model.EventoChave;
+import com.egressos.model.TipoEvento;
 
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * CSV: eventos.csv
+ * Header: id,egressoId,tipo,titulo,organizacao,local,descricao,observacoes,data
+ */
 public class EventosDao {
-    private static final String HEADER = "id,egresso_id,tipo,titulo,descricao,organizacao,data_iso,local,observacoes";
-    private final CsvStore store = new CsvStore(Paths.get("data/eventos.csv"), HEADER);
+    private final CsvStore csv = CsvStore.get();
 
-    public List<EventoChave> porEgresso(String egressoId) {
-        return store.readAll().stream()
-                .filter(r -> r[1].equals(egressoId))
-                .map(this::toEvento)
-                .sorted(Comparator.comparing(EventoChave::getData))
+    private static String n(String s){ return s==null? "" : s; }
+
+    public List<EventoChave> listarTodos(){
+        List<EventoChave> out = new ArrayList<>();
+        for (String[] row : csv.readAll("eventos.csv")) {
+            // tolerância: se arquivo antigo não tiver todas colunas, preenche o que der
+            EventoChave e = new EventoChave();
+            if (row.length > 0) e.setId(row[0]);
+            if (row.length > 1) e.setEgressoId(row[1]);
+            if (row.length > 2) e.setTipo(TipoEvento.fromString(row[2]));
+            if (row.length > 3) e.setTitulo(row[3]);
+            if (row.length > 4) e.setOrganizacao(row[4]);
+            if (row.length > 5) e.setLocal(row[5]);
+            if (row.length > 6) e.setDescricao(row[6]);
+            if (row.length > 7) e.setObservacoes(row[7]);
+            if (row.length > 8 && row[8]!=null && !row[8].isBlank()) {
+                e.setData(LocalDate.parse(row[8]));
+            }
+            out.add(e);
+        }
+        return out;
+    }
+
+    public void salvarTodos(List<EventoChave> all){
+        List<String[]> out = new ArrayList<>();
+        for (EventoChave e : all) {
+            out.add(new String[]{
+                    n(e.getId()),
+                    n(e.getEgressoId()),
+                    e.getTipo()==null? "" : e.getTipo().name(),
+                    n(e.getTitulo()),
+                    n(e.getOrganizacao()),
+                    n(e.getLocal()),
+                    n(e.getDescricao()),
+                    n(e.getObservacoes()),
+                    e.getData()==null? "" : e.getData().toString()
+            });
+        }
+        csv.writeAll("eventos.csv", out, new String[]{
+                "id","egressoId","tipo","titulo","organizacao","local","descricao","observacoes","data"
+        });
+    }
+
+    // ====== Métodos exigidos pelo seu EventosService ======
+
+    public List<EventoChave> porEgresso(String egressoId){
+        return listarTodos().stream()
+                .filter(e -> egressoId != null && egressoId.equals(e.getEgressoId()))
                 .collect(Collectors.toList());
     }
 
-    public List<EventoChave> listarTodos() {
-        return store.readAll().stream()
-                .map(this::toEvento)
-                .sorted(Comparator.comparing(EventoChave::getEgressoId).thenComparing(EventoChave::getData))
-                .collect(Collectors.toList());
-    }
-
-    public void salvar(EventoChave e) {
-        List<String[]> rows = store.readAll();
+    /** upsert por ID (se existir substitui; se não existir, adiciona) */
+    public void salvar(EventoChave e){
+        List<EventoChave> all = listarTodos();
         boolean updated = false;
-        for (int i = 0; i < rows.size(); i++) {
-            if (rows.get(i)[0].equals(e.getId())) {
-                rows.set(i, toRow(e)); updated = true; break;
+        for (int i=0; i<all.size(); i++){
+            if (all.get(i).getId()!=null && all.get(i).getId().equals(e.getId())){
+                all.set(i, e);
+                updated = true;
+                break;
             }
         }
-        if (!updated) rows.add(toRow(e));
-        store.overwrite(rows, HEADER);
+        if (!updated) {
+            // se não vier id, gera um
+            if (e.getId()==null || e.getId().isBlank()){
+                e.setId(EventoChave.newId());
+            }
+            all.add(e);
+        }
+        salvarTodos(all);
     }
 
-    public void remover(String id) {
-        List<String[]> rows = store.readAll().stream()
-                .filter(r -> !r[0].equals(id)).collect(Collectors.toList());
-        store.overwrite(rows, HEADER);
-    }
-
-    private EventoChave toEvento(String[] r) {
-        EventoChave e = new EventoChave();
-        e.setId(r[0]);
-        e.setEgressoId(r[1]);
-        e.setTipo(r[2]);
-        e.setTitulo(r[3]);
-        e.setDescricao(r[4]);
-        e.setOrganizacao(r[5]);
-        e.setData(r[6].isBlank() ? LocalDate.of(1970,1,1) : LocalDate.parse(r[6]));
-        e.setLocal(r[7]);
-        e.setObservacoes(r[8]);
-        return e;
-    }
-
-    private String[] toRow(EventoChave e) {
-        return new String[]{
-                e.getId(), e.getEgressoId(), e.getTipo(), e.getTitulo(),
-                e.getDescricao(), e.getOrganizacao(),
-                e.getData()==null? "" : e.getData().toString(),
-                e.getLocal(), e.getObservacoes()
-        };
+    public void remover(String eventoId){
+        if (eventoId == null || eventoId.isBlank()) return;
+        List<EventoChave> all = listarTodos();
+        all.removeIf(ev -> eventoId.equals(ev.getId()));
+        salvarTodos(all);
     }
 }

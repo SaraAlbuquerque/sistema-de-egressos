@@ -1,2 +1,2 @@
-usuario_id,curso,ano_formacao,area_atuacao,escolaridade_atual,empregado,empresa_atual,cidade,estado,pais
-69a05c19-44b9-48bc-a30b-e591e7ecae61,Computação,2026,ML,Ensino Superior Incompleto,1,Unesp,Presidente Prudente,SP,Brasil
+usuarioId,curso,ano,area,escolaridade,empregado,empresa,cidade,estado,pais,permitirExibirContato,permitirExibirEmpresa
+69a05c19-44b9-48bc-a30b-e591e7ecae61,Computação,2026,ML,Ensino Superior Incompleto,false,Unesp,Presidente Prudente,SP,Brasil,true,true

@@ -18,7 +18,7 @@ public class CoordinatorEventosPanel extends JPanel {
     private final EventosDao eventosDao = new EventosDao();
     private final UsuariosDao usuariosDao = new UsuariosDao();
 
-    private final JTextField tipoField = new JTextField();
+    private final JTextField tipoField = new JTextField(); // aceita PROMOCAO/PROJETO/...
     private final JTextField orgField = new JTextField();
     private final JTextField localField = new JTextField();
     private final JTextField dataDeField = new JTextField();
@@ -72,8 +72,10 @@ public class CoordinatorEventosPanel extends JPanel {
         table.setAutoCreateRowSorter(true);
 
         buscar.addActionListener(e -> carregar());
-        limpar.addActionListener(e -> { tipoField.setText(""); orgField.setText(""); localField.setText("");
-            dataDeField.setText(""); dataAteField.setText(""); textoField.setText(""); carregar(); });
+        limpar.addActionListener(e -> {
+            tipoField.setText(""); orgField.setText(""); localField.setText("");
+            dataDeField.setText(""); dataAteField.setText(""); textoField.setText(""); carregar();
+        });
 
         carregar();
     }
@@ -85,7 +87,7 @@ public class CoordinatorEventosPanel extends JPanel {
 
             List<EventoChave> eventos = eventosDao.listarTodos().stream().filter(ev -> {
                 if (!tipoField.getText().trim().isEmpty() &&
-                        (ev.getTipo()==null || !ev.getTipo().toLowerCase().contains(tipoField.getText().trim().toLowerCase()))) return false;
+                        (ev.getTipo()==null || !ev.getTipo().name().toLowerCase().contains(tipoField.getText().trim().toLowerCase()))) return false;
                 if (!orgField.getText().trim().isEmpty() &&
                         (ev.getOrganizacao()==null || !ev.getOrganizacao().toLowerCase().contains(orgField.getText().trim().toLowerCase()))) return false;
                 if (!localField.getText().trim().isEmpty() &&
@@ -102,14 +104,15 @@ public class CoordinatorEventosPanel extends JPanel {
                     try { if (ev.getData().isAfter(LocalDate.parse(dataAteField.getText().trim()))) return false; } catch (Exception ignore) {}
                 }
                 return true;
-            }).sorted(Comparator.comparing(EventoChave::getData).reversed()).collect(Collectors.toList());
+            }).sorted(Comparator.comparing(EventoChave::getData, Comparator.nullsLast(Comparator.naturalOrder())).reversed())
+                    .collect(Collectors.toList());
 
             model.setRowCount(0);
             for (EventoChave ev : eventos) {
                 model.addRow(new Object[]{
                         ev.getData()!=null? ev.getData().format(DF) : "",
                         nomes.getOrDefault(ev.getEgressoId(), ev.getEgressoId()),
-                        ev.getTipo(),
+                        ev.getTipo()==null? "" : ev.getTipo().name(),
                         ev.getTitulo(),
                         ev.getOrganizacao(),
                         ev.getLocal()
