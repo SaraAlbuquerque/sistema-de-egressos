@@ -70,7 +70,6 @@ public class LoginFrame extends JFrame {
         entrarBtn.addActionListener(e -> tentarLogin());
         esqueciSenhaBtn.addActionListener(e -> abrirEsqueciSenha());
         criarContaBtn.addActionListener(e -> abrirSolicitarConta());
-
         senhaField.addActionListener(e -> tentarLogin());
     }
 
@@ -83,25 +82,17 @@ public class LoginFrame extends JFrame {
             return;
         }
 
-        Optional<Usuario> found = auth.login(email, senha);
-        if (found.isEmpty()) {
+        Optional<Usuario> uOpt = auth.login(email, senha);
+        if (uOpt.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Credenciais inválidas.");
-            senhaField.setText("");
-            senhaField.requestFocusInWindow();
             return;
         }
 
-        Usuario u = found.get();
+        Usuario u = uOpt.get();
         auth.setUsuarioLogado(u);
 
-        abrirHomePorPapel(u);
-    }
-
-    private void abrirHomePorPapel(Usuario u) {
         dispose();
-        if (null == u.getPapel()) {
-            new DocenteFrame(u).setVisible(true);
-        } else switch (u.getPapel()) {
+        switch (u.getPapel()) {
             case COORDENADOR -> new CoordinatorFrame(u).setVisible(true);
             case EGRESSO -> new EgressoFrame(u).setVisible(true);
             default -> new DocenteFrame(u).setVisible(true);

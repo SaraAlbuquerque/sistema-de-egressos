@@ -30,7 +30,8 @@ public class PasswordResetService {
         var reg = resets.buscarAtivo(token);
         if (reg.isEmpty()) return false;
 
-        String msg = PasswordPolicy.violationMessage(novaSenha);
+        String msg;
+        msg = PasswordPolicy.violationMessage(novaSenha);
         if (msg != null) {
             throw new IllegalArgumentException(msg);
         }

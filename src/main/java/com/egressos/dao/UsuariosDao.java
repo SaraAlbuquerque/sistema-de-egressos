@@ -50,4 +50,8 @@ public class UsuariosDao {
                 u.getCriadoEm().toString()
         };
     }
+    
+    public Optional<Usuario> buscarPorId(String id) {
+        return listar().stream().filter(u -> u.getId().equals(id)).findFirst();
+    }
 }
