@@ -1,6 +1,4 @@
 usuarioId,curso,anoFormacao,areaAtuacao,escolaridadeAtual,empregado,empresaAtual,cidade,estado,pais,permitirExibirContato,permitirExibirEmpresa,dataNascimento,anoConclusao,nickGithub,redeSocial1,redeSocial2
-69a05c19-44b9-48bc-a30b-e591e7ecae61,Computação,2026,ML,Ensino Superior Incompleto,false,Unesp,Presidente Prudente,SP,Brasil,true,true,,,,,
-3c98baa3-b3d9-450f-b3b7-a536686d9ca1,Ciência da Computação,2025,Engenharia de Software,Mestre,false,Unesp,Presidente Prudente,São Paulo,Brasil,true,true,2000-03-15,2024,git,,
-e8ab557f-41fd-44e0-98be-7ec01135c941,,0,,,false,,,,,false,false,,,,,
-66ea95e2-a51c-4589-8953-31c5ac9a73cd,BCC,2025,IA,Ensino superior,true,,,,,false,false,2000-03-15,2025,git,insta,x
-ddfdc95e-3ba5-4506-978e-bb7495cd4c96,,0,,,false,,,,,false,false,2000-01-01,2023,o,,
+21a65357-6b6b-434e-be3e-00ae89705df9,Computação,2020,TI,,false,Tech,São Paulo,,,true,false,,2021,,,
+31cdcaa2-9faa-49a7-a399-89d5b86b3e51,Computação,2020,TI,,false,Tech,São Paulo,,,true,false,,2021,,,
+d5f8d3ee-ca6c-4800-b035-f03d82fd6ff7,Computação,2020,TI,,false,Tech,São Paulo,,,true,false,,2021,,,

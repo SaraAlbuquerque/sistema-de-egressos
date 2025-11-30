@@ -33,7 +33,6 @@ public class DocenteFrame extends JFrame {
 
     private final Usuario docenteRef;
 
-
     private final JTextField nomeField   = new JTextField();
     private final JTextField emailField  = new JTextField();
     private final JTextField cursoField  = new JTextField();
@@ -46,13 +45,11 @@ public class DocenteFrame extends JFrame {
     private final JCheckBox  somenteEmpregados = new JCheckBox("Somente empregados");
     private final JButton    buscarBtn   = new JButton("Buscar");
 
-
     private final DefaultTableModel model = new DefaultTableModel(
             new Object[]{"ID","Nome","Curso","Ano","Eventos"}, 0) {
         @Override public boolean isCellEditable(int r, int c) { return false; }
     };
     private final JTable table = new JTable(model);
-
 
     private final DefaultTableModel recentesModel = new DefaultTableModel(
             new Object[]{"ID","Quando","Egresso"},0){
@@ -71,29 +68,37 @@ public class DocenteFrame extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-
+        // ===== topo com título + botões =====
         JPanel topo = new JPanel(new BorderLayout());
         topo.add(new JLabel("   Consulta de Egressos — Docente"), BorderLayout.WEST);
+
+        JButton trocarSenhaBtn = new JButton("Trocar senha");
+        trocarSenhaBtn.addActionListener(e -> {
+            ChangePasswordDialog dlg = new ChangePasswordDialog(this, docenteRef);
+            dlg.setLocationRelativeTo(this);
+            dlg.setVisible(true);
+        });
 
         JButton sairBtn = new JButton("Sair");
         sairBtn.addActionListener(e -> {
             dispose();
             new LoginFrame().setVisible(true);
         });
+
         JPanel topoEast = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        topoEast.add(trocarSenhaBtn);
         topoEast.add(sairBtn);
         topo.add(topoEast, BorderLayout.EAST);
 
-
+        // ===== filtros =====
         JPanel filtros = buildFiltros();
 
-        // container unindo topo + filtros na parte NORTH
         JPanel header = new JPanel(new BorderLayout());
         header.add(topo, BorderLayout.NORTH);
         header.add(filtros, BorderLayout.CENTER);
         add(header, BorderLayout.NORTH);
 
-
+        // ===== tabela principal =====
         table.setAutoCreateRowSorter(true);
         // esconder coluna ID
         table.getColumnModel().getColumn(0).setMinWidth(0);
@@ -117,6 +122,16 @@ public class DocenteFrame extends JFrame {
         split.setRightComponent(recentesPanel);
         add(split, BorderLayout.CENTER);
 
+        // clique nos recentes abre perfil
+        recientesTableAddListener();
+
+        buscarBtn.addActionListener(e -> aplicarBusca());
+
+        aplicarBusca();
+        carregarRecentes();
+    }
+
+    private void recientesTableAddListener() {
         recentesTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -125,11 +140,6 @@ public class DocenteFrame extends JFrame {
                 }
             }
         });
-
-        buscarBtn.addActionListener(e -> aplicarBusca());
-
-        aplicarBusca();
-        carregarRecentes();
     }
 
     private JPanel buildFiltros() {
@@ -171,7 +181,6 @@ public class DocenteFrame extends JFrame {
         c.gridx=1; p.add(paisField, c);
         c.gridx=2; p.add(somenteEmpregados, c);
 
-        // linha de botões (Buscar / Limpar filtros)
         JButton limparBtn = new JButton("Limpar filtros");
         limparBtn.addActionListener(e -> {
             nomeField.setText("");
@@ -323,7 +332,6 @@ public class DocenteFrame extends JFrame {
         }
     }
 
-
     private void abrirPerfilDaTabelaPrincipal() {
         int row = table.getSelectedRow();
         if (row < 0) return;
@@ -337,7 +345,6 @@ public class DocenteFrame extends JFrame {
         }
         registrarEExibirPerfil(eg);
     }
-
 
     private void abrirPerfilDosRecentes() {
         int row = recentesTable.getSelectedRow();
@@ -353,7 +360,6 @@ public class DocenteFrame extends JFrame {
         registrarEExibirPerfil(eg);
     }
 
-
     private void registrarEExibirPerfil(Usuario egresso) {
         try {
             visDao.registrar(docenteRef.getId(), egresso.getId());
@@ -366,7 +372,6 @@ public class DocenteFrame extends JFrame {
     }
 
     private String n(String s) { return s==null? "" : s; }
-
 
     private void aplicarMascaraAnoQuatroDigitos(JTextField campo) {
         AbstractDocument doc = (AbstractDocument) campo.getDocument();

@@ -1,5 +1,4 @@
 id,egressoId,tipo,titulo,organizacao,local,descricao,observacoes,data
-176acdf6-6a49-487a-be65-a15be5b8cabf,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PROJETO,Cidades Inteligentes,UFG,UFG,Tecnologia na acessibilidade para cegos,,2022-04-03
-6d889b23-b82a-4bd0-9a4e-b7a53fe008d5,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PREMIO,Força de vontade,CAPS,Lua,Não desistiu,,2025-11-03
-5bab4266-691b-4536-89d6-5f33dfeaebef,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PROMOCAO,Júnior,Empresa,Sorocaba,,,2025-04-15
-e135e9de-b266-4b1e-add2-64728a43a480,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PROMOCAO,teste,teste,teste,,,2000-03-15
+7ea07913-4617-4850-8663-df25ef4b13a5,21a65357-6b6b-434e-be3e-00ae89705df9,PROMOCAO,Promoção,Empresa,SP,subida,nota,2023-09-10
+fed75cc0-f0e9-4536-a0f7-8dddc2c806e3,31cdcaa2-9faa-49a7-a399-89d5b86b3e51,PROMOCAO,Promoção,Empresa,SP,subida,nota,2023-09-10
+fa2bda41-2d0c-4344-9e4d-61a2a85f7848,d5f8d3ee-ca6c-4800-b035-f03d82fd6ff7,PROMOCAO,Promoção,Empresa,SP,subida,nota,2023-09-10

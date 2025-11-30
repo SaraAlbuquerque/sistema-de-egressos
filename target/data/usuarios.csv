@@ -1,0 +1,6 @@
+id,email,nome,papel,senha_hash,precisa_trocar_senha,criado_em
+e82af37b-b021-449a-b812-a46034db836f,admin@fct.br,Coordenador,COORDENADOR,EWwOeQ/YLlTkasdCKKRLUWNIDUa9FpXjAwqmcmp6lUw=,0,2025-11-30T06:42:27.421722300Z
+8c61d7d1-6412-4a3e-b092-d02ee4fd57bb,maria@teste,Maria,EGRESSO,l9RYOc3AXjGE3x4XXqhSMxjPGQO2uLZAHfJMPO9P/3Y=,1,2025-11-30T06:43:27.301964400Z
+809f51b1-2a6b-4110-be78-7559bded00b4,docente@teste.com,Docente,DOCENTE,+emWxdN7syrR+Et+/4CyDoHaPZ9CopDE/ARJh4ze35c=,0,2025-11-30T06:45:27.159460Z
+adce5f2e-7f5f-48af-988d-85ec7545fdf8,docente2@teste.com,Docente II,DOCENTE,o2xE0ZGefXI8bZjbWHLxLykuJ9mA/1RbTDZ03kg6ryM=,0,2025-11-30T06:50:11.393897100Z
+1ae28bd8-35fd-417e-8bc2-72f51aa4268b,egresso.primeiro@teste.com,Egresso,EGRESSO,oPnZQaVgFNZu9zpkpDCMBBiC1fxN6U3AFR92+lE88qY=,0,2025-11-30T06:53:33.717892Z

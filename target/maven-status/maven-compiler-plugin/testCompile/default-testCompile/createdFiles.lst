@@ -1,0 +1,10 @@
+com\egressos\service\GeradorSenhaTemporariaTest.class
+com\egressos\auth\PasswordPolicyTest.class
+com\egressos\dao\CsvStoreTest.class
+com\egressos\util\DatasBRTest.class
+com\egressos\auth\PasswordsTest.class
+com\egressos\service\ValidadorSenhaTest.class
+com\egressos\service\PasswordResetServiceTest.class
+com\egressos\service\PasswordUtilTest.class
+com\egressos\integration\SystemIntegrationTest.class
+com\egressos\service\AuthServiceTest.class

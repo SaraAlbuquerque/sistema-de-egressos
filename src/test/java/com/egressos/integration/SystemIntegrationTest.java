@@ -20,9 +20,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Comparator;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -115,7 +116,8 @@ class SystemIntegrationTest {
         assertTrue(tokenOpt.isPresent());
 
         String token = tokenOpt.get();
-        Path resetFile = Path.of("data/password_resets.csv");
+
+        Path resetFile = dataDir.resolve("password_resets.csv");
         List<String> beforeLines = Files.readAllLines(resetFile);
         assertTrue(beforeLines.stream().anyMatch(l -> l.contains(token) && l.endsWith(",0")));
 
@@ -135,19 +137,24 @@ class SystemIntegrationTest {
         assertEquals(Passwords.sha256(newPassword), persisted.getSenhaHash());
     }
 
-    private static void cleanDirectory(Path dir) throws IOException {
-        if (Files.exists(dir)) {
-            Files.walk(dir)
-                    .sorted(Comparator.reverseOrder())
-                    .forEach(path -> {
+    private void cleanDirectory(Path dir) {
+        if (!Files.exists(dir)) return;
+
+        try (java.util.stream.Stream<Path> s = Files.walk(dir)) {
+            s.sorted(Comparator.reverseOrder())
+                    .forEach(p -> {
+                        if (p.equals(dir)) return;
                         try {
-                            Files.delete(path);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            Files.deleteIfExists(p);
+                        } catch (java.nio.file.AccessDeniedException ex) {
+                            System.err.println("Aviso: sem acesso para apagar: " + p + " (" + ex.getMessage() + ")");
+                        } catch (IOException ex) {
+                            throw new RuntimeException("Falha limpando diretório de teste: " + p, ex);
                         }
                     });
+        } catch (IOException e) {
+            throw new RuntimeException("Falha ao percorrer diretório de teste: " + dir, e);
         }
-        Files.createDirectories(dir);
     }
 
     private static void copyDirectory(Path source, Path target) throws IOException {
