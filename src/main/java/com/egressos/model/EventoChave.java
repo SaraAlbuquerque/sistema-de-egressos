@@ -6,7 +6,7 @@ import java.util.UUID;
 public class EventoChave {
     private String id;
     private String egressoId;
-    private TipoEvento tipo; // enum padronizado (retrocompat com setTipo(String))
+    private TipoEvento tipo;
     private String titulo;
     private String organizacao;
     private String local;
@@ -26,7 +26,7 @@ public class EventoChave {
 
     public TipoEvento getTipo() { return tipo; }
     public void setTipo(TipoEvento tipo) { this.tipo = tipo; }
-    // retrocompat: aceitar String e mapear para enum
+
     public void setTipo(String tipoTexto) { this.tipo = TipoEvento.fromString(tipoTexto); }
 
     public String getTitulo() { return titulo; }

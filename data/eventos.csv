@@ -1,2 +1,5 @@
 id,egressoId,tipo,titulo,organizacao,local,descricao,observacoes,data
-5cf559ed-3b86-42ab-80ea-a81389cd678e,69a05c19-44b9-48bc-a30b-e591e7ecae61,PUBLICACAO,Aplicação com Machine Learning,Unesp,Unesp,Apenas um teste,,2025-11-02
+176acdf6-6a49-487a-be65-a15be5b8cabf,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PROJETO,Cidades Inteligentes,UFG,UFG,Tecnologia na acessibilidade para cegos,,2022-04-03
+6d889b23-b82a-4bd0-9a4e-b7a53fe008d5,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PREMIO,Força de vontade,CAPS,Lua,Não desistiu,,2025-11-03
+5bab4266-691b-4536-89d6-5f33dfeaebef,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PROMOCAO,Júnior,Empresa,Sorocaba,,,2025-04-15
+e135e9de-b266-4b1e-add2-64728a43a480,3c98baa3-b3d9-450f-b3b7-a536686d9ca1,PROMOCAO,teste,teste,teste,,,2000-03-15

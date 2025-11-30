@@ -36,6 +36,14 @@ public class UsuariosDao {
         store.overwrite(all.stream().map(this::toRow).collect(Collectors.toList()), HEADER);
     }
 
+    public void remover(String id) {
+        List<Usuario> all = listar();
+        boolean alterou = all.removeIf(u -> u.getId().equals(id));
+        if (alterou) {
+            store.overwrite(all.stream().map(this::toRow).collect(Collectors.toList()), HEADER);
+        }
+    }
+
     private Usuario toUsuario(String[] r) {
         return new Usuario(
                 r[0], r[1], r[2], Papel.valueOf(r[3]), r[4],

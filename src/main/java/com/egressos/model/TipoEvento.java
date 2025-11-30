@@ -13,6 +13,6 @@ public enum TipoEvento {
         for (TipoEvento t : values()) {
             if (t.name().equals(k)) return t;
         }
-        return OUTRO; // tolera valores antigos
+        return OUTRO;
     }
 }

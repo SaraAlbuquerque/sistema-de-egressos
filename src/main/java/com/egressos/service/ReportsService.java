@@ -14,7 +14,6 @@ public class ReportsService {
     private static String safe(String s){ return s==null? "" : s.replace("\n"," ").replace(","," "); }
     private static String n(String s){ return s==null? "" : s; }
 
-    // ---- EXEMPLOS JÁ EXISTENTES (adicione os seus aqui) ----
     public java.nio.file.Path exportEventosPorTipoCsv(java.nio.file.Path destino) throws Exception {
         List<EventoChave> eventos = eventosDao.listarTodos();
         Map<String, Long> cont = eventos.stream()
@@ -44,9 +43,7 @@ public class ReportsService {
         }
         return destino;
     }
-    // --------------------------------------------------------
 
-    // NOVO: por período
     public java.nio.file.Path exportEventosPorPeriodoCsv(java.nio.file.Path destino, LocalDate inicio, LocalDate fim) throws Exception {
         List<EventoChave> evs = eventosDao.listarTodos();
         try (java.io.FileWriter fw = new java.io.FileWriter(destino.toFile())) {
@@ -66,7 +63,7 @@ public class ReportsService {
         return destino;
     }
 
-    // NOVO: por local (trecho contém)
+
     public java.nio.file.Path exportEventosPorLocalCsv(java.nio.file.Path destino, String localFiltro) throws Exception {
         List<EventoChave> evs = eventosDao.listarTodos();
         String lf = localFiltro==null? "" : localFiltro.trim().toLowerCase();

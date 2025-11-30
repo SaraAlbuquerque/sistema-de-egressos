@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * CSV: visualizacoes_docente.csv
- * Header: docenteId,egressoUsuarioId,ts
- */
+
 public class VisualizacoesDocenteDao {
     private final CsvStore csv = CsvStore.get();
 

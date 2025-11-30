@@ -4,12 +4,12 @@ import java.time.Instant;
 import java.util.Objects;
 
 public class Usuario {
-    private String id;               // UUID textual
+    private String id;
     private String email;
     private String nome;
     private Papel papel;
-    private String senhaHash;        // SHA-256 base64
-    private boolean precisaTrocarSenha; // pode manter por compat, mesmo sem usar
+    private String senhaHash;
+    private boolean precisaTrocarSenha;
     private Instant criadoEm;
 
     public Usuario(String id, String email, String nome, Papel papel,
@@ -26,7 +26,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    // GETTERS
+
     public String getId() { return id; }
     public String getEmail() { return email; }
     public String getNome() { return nome; }
@@ -35,7 +35,7 @@ public class Usuario {
     public boolean isPrecisaTrocarSenha() { return precisaTrocarSenha; }
     public Instant getCriadoEm() { return criadoEm; }
 
-    // SETTERS
+
     public void setId(String id) { this.id = id; }
     public void setEmail(String email) { this.email = email; }
     public void setNome(String nome) { this.nome = nome; }
@@ -44,7 +44,6 @@ public class Usuario {
     public void setPrecisaTrocarSenha(boolean precisaTrocarSenha) { this.precisaTrocarSenha = precisaTrocarSenha; }
     public void setCriadoEm(Instant criadoEm) { this.criadoEm = criadoEm; }
 
-    // equals/hashCode por id
     @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Usuario)) return false;

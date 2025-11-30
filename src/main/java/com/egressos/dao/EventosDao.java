@@ -20,7 +20,6 @@ public class EventosDao {
     public List<EventoChave> listarTodos(){
         List<EventoChave> out = new ArrayList<>();
         for (String[] row : csv.readAll("eventos.csv")) {
-            // tolerância: se arquivo antigo não tiver todas colunas, preenche o que der
             EventoChave e = new EventoChave();
             if (row.length > 0) e.setId(row[0]);
             if (row.length > 1) e.setEgressoId(row[1]);
@@ -58,7 +57,6 @@ public class EventosDao {
         });
     }
 
-    // ====== Métodos exigidos pelo seu EventosService ======
 
     public List<EventoChave> porEgresso(String egressoId){
         return listarTodos().stream()
@@ -66,7 +64,6 @@ public class EventosDao {
                 .collect(Collectors.toList());
     }
 
-    /** upsert por ID (se existir substitui; se não existir, adiciona) */
     public void salvar(EventoChave e){
         List<EventoChave> all = listarTodos();
         boolean updated = false;
@@ -78,7 +75,6 @@ public class EventosDao {
             }
         }
         if (!updated) {
-            // se não vier id, gera um
             if (e.getId()==null || e.getId().isBlank()){
                 e.setId(EventoChave.newId());
             }
