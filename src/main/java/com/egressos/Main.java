@@ -27,7 +27,7 @@ public class Main {
                             "Coordenador",
                             Papel.COORDENADOR,
                             Passwords.sha256("Administrador@123"),
-                            false, // não exige troca de senha
+                            false,
                             Instant.now()
                     );
                     udao.salvarOuAtualizar(seed);

@@ -6,7 +6,7 @@ public class EgressoProfile {
     private String usuarioId;
     private String nome;
     private String curso;
-    private int anoFormacao;
+    private Integer anoFormacao;
     private String areaAtuacao;
     private String escolaridadeAtual;
     private boolean empregado;
@@ -17,7 +17,6 @@ public class EgressoProfile {
     private boolean permitirExibirContato;
     private boolean permitirExibirEmpresa;
     private LocalDate dataNascimento;
-    private Integer anoConclusao;
     private String nickGithub;
     private String redeSocial1;
     private String redeSocial2;
@@ -46,11 +45,11 @@ public class EgressoProfile {
         this.curso = curso;
     }
 
-    public int getAnoFormacao() {
+    public Integer getAnoFormacao() {
         return anoFormacao;
     }
 
-    public void setAnoFormacao(int anoFormacao) {
+    public void setAnoFormacao(Integer anoFormacao) {
         this.anoFormacao = anoFormacao;
     }
 
@@ -134,13 +133,6 @@ public class EgressoProfile {
         this.dataNascimento = dataNascimento;
     }
 
-    public Integer getAnoConclusao() {
-        return anoConclusao;
-    }
-
-    public void setAnoConclusao(Integer anoConclusao) {
-        this.anoConclusao = anoConclusao;
-    }
 
     public String getNickGithub() {
         return nickGithub;

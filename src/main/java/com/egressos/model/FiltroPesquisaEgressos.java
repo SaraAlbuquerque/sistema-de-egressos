@@ -3,7 +3,7 @@ package com.egressos.model;
 public class FiltroPesquisaEgressos {
     private String nome;
     private String curso;
-    private Integer anoConclusao;
+    private Integer anoFormacao;
     private String cidade;
     private String empresaAtual;
     private String areaAtuacao;
@@ -24,12 +24,12 @@ public class FiltroPesquisaEgressos {
         this.curso = curso;
     }
 
-    public Integer getAnoConclusao() {
-        return anoConclusao;
+    public Integer getAnoFormacao() {
+        return anoFormacao;
     }
 
-    public void setAnoConclusao(Integer anoConclusao) {
-        this.anoConclusao = anoConclusao;
+    public void setAnoFormacao(Integer anoFormacao) {
+        this.anoFormacao = anoFormacao;
     }
 
     public String getCidade() {

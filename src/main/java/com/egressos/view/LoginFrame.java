@@ -126,7 +126,7 @@ public class LoginFrame extends JFrame {
             if (p.getDataNascimento() == null) {
                 return true;
             }
-            if (p.getAnoConclusao() == null) {
+            if (p.getAnoFormacao() == null) {
                 return true;
             }
             if (p.getNickGithub() == null || p.getNickGithub().isBlank()) {

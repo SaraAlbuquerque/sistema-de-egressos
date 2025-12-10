@@ -51,9 +51,9 @@ public class EgressosDao {
             }
             if (row.length > 13 && row[13] != null && !row[13].isBlank()) {
                 try {
-                    p.setAnoConclusao(Integer.parseInt(row[13]));
+                    p.setAnoFormacao(Integer.parseInt(row[13]));
                 } catch (Exception e) {
-                    p.setAnoConclusao(null);
+                    p.setAnoFormacao(-1);
                 }
             }
             if (row.length > 14) p.setNickGithub(row[14]);
@@ -81,7 +81,7 @@ public class EgressosDao {
                     String.valueOf(p.isPermitirExibirContato()),
                     String.valueOf(p.isPermitirExibirEmpresa()),
                     p.getDataNascimento() == null ? "" : p.getDataNascimento().toString(),
-                    p.getAnoConclusao() == null ? "" : String.valueOf(p.getAnoConclusao()),
+                    p.getAnoFormacao() == null ? "" : String.valueOf(p.getAnoFormacao()),
                     n(p.getNickGithub()),
                     n(p.getRedeSocial1()),
                     n(p.getRedeSocial2())
@@ -101,7 +101,7 @@ public class EgressosDao {
                 "permitirExibirContato",
                 "permitirExibirEmpresa",
                 "dataNascimento",
-                "anoConclusao",
+                "anoFormacao",
                 "nickGithub",
                 "redeSocial1",
                 "redeSocial2"
@@ -137,8 +137,8 @@ public class EgressosDao {
                 String curso = p.getCurso() == null ? "" : p.getCurso().toLowerCase();
                 if (!curso.contains(f.getCurso().toLowerCase())) return false;
             }
-            if (f.getAnoConclusao() != null) {
-                if (p.getAnoConclusao() == null || !p.getAnoConclusao().equals(f.getAnoConclusao()))
+            if (f.getAnoFormacao() != null) {
+                if (p.getAnoFormacao() == null || !p.getAnoFormacao().equals(f.getAnoFormacao()))
                     return false;
             }
             if (f.getCidade() != null && !f.getCidade().isBlank()) {

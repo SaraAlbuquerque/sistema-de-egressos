@@ -20,18 +20,18 @@ public class EgressoController {
 
     public boolean completarCadastro(String usuarioId,
                                      LocalDate dataNascimento,
-                                     Integer anoConclusao,
+                                     Integer anoFormacao,
                                      String nickGithub,
                                      String redeSocial1,
                                      String redeSocial2) {
-        if (dataNascimento == null || anoConclusao == null || nickGithub == null || nickGithub.isBlank()) {
+        if (dataNascimento == null || anoFormacao == null || nickGithub == null || nickGithub.isBlank()) {
             return false;
         }
         Optional<EgressoProfile> opt = egressosDao.porUsuarioId(usuarioId);
         EgressoProfile perfil = opt.orElseGet(EgressoProfile::new);
         perfil.setUsuarioId(usuarioId);
         perfil.setDataNascimento(dataNascimento);
-        perfil.setAnoConclusao(anoConclusao);
+        perfil.setAnoFormacao(anoFormacao);
         perfil.setNickGithub(nickGithub);
         perfil.setRedeSocial1(redeSocial1);
         perfil.setRedeSocial2(redeSocial2);

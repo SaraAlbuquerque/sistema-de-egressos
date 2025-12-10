@@ -1,6 +1,6 @@
 id,email,nome,papel,senha_hash,precisa_trocar_senha,criado_em
-e82af37b-b021-449a-b812-a46034db836f,admin@fct.br,Coordenador,COORDENADOR,EWwOeQ/YLlTkasdCKKRLUWNIDUa9FpXjAwqmcmp6lUw=,0,2025-11-30T06:42:27.421722300Z
-8c61d7d1-6412-4a3e-b092-d02ee4fd57bb,maria@teste,Maria,EGRESSO,l9RYOc3AXjGE3x4XXqhSMxjPGQO2uLZAHfJMPO9P/3Y=,1,2025-11-30T06:43:27.301964400Z
-809f51b1-2a6b-4110-be78-7559bded00b4,docente@teste.com,Docente,DOCENTE,+emWxdN7syrR+Et+/4CyDoHaPZ9CopDE/ARJh4ze35c=,0,2025-11-30T06:45:27.159460Z
-adce5f2e-7f5f-48af-988d-85ec7545fdf8,docente2@teste.com,Docente II,DOCENTE,o2xE0ZGefXI8bZjbWHLxLykuJ9mA/1RbTDZ03kg6ryM=,0,2025-11-30T06:50:11.393897100Z
-1ae28bd8-35fd-417e-8bc2-72f51aa4268b,egresso.primeiro@teste.com,Egresso,EGRESSO,oPnZQaVgFNZu9zpkpDCMBBiC1fxN6U3AFR92+lE88qY=,0,2025-11-30T06:53:33.717892Z
+73b41bb2-732f-40e5-a9f5-2ddd826dcdd2,admin@fct.br,Coordenador,COORDENADOR,EWwOeQ/YLlTkasdCKKRLUWNIDUa9FpXjAwqmcmp6lUw=,0,2025-12-10T01:11:33.724917200Z
+63c651f1-716f-47be-bc64-6a841e2620b8,maria.egresso@teste.com,Maria Silva,EGRESSO,dVIq2ORcNcGWkWe2+OMviIbi0m/z9T+SKZ6rSoytfe4=,0,2025-12-10T01:14:24.105861800Z
+971f5647-005f-46a8-9c40-39328ed2461b,docente@teste.com,Docente,DOCENTE,+emWxdN7syrR+Et+/4CyDoHaPZ9CopDE/ARJh4ze35c=,0,2025-12-10T01:16:40.334216600Z
+bfac20a6-5e18-4705-9936-d1ad87a7b014,docente2@teste.com,docente2,DOCENTE,WRVt5PENhK15um9Mj7lc56YWrktQdK3/Vkzv5OwaVCI=,0,2025-12-10T01:25:57.815281800Z
+891d82c3-9787-478c-9ec5-c5a536ff6f8d,egresso.primeiro@teste.com,Egresso,EGRESSO,cRSf6OGIbRToWDrTQ4H2leCqaJyuraypU/KanWA1Eyw=,0,2025-12-10T01:29:52.978056800Z

@@ -37,8 +37,7 @@ public class PerfilFrame extends JFrame {
     private final JTextField cidadeField        = new JTextField();
     private final JTextField estadoField        = new JTextField();
     private final JTextField paisField          = new JTextField();
-    private final JTextField visContatoField    = new JTextField();
-    private final JTextField visEmpresaField    = new JTextField();
+
 
     private final DefaultTableModel eventosModel = new DefaultTableModel(
             new Object[]{"Data","Tipo","Título","Organização","Local"}, 0) {
@@ -117,11 +116,6 @@ public class PerfilFrame extends JFrame {
         c.gridx=0; c.gridy=y; p.add(label("País:", labelAlign), c);
         c.gridx=1; p.add(readOnly(paisField), c); y++;
 
-        c.gridx=0; c.gridy=y; p.add(label("Exibir contato a docentes:", labelAlign), c);
-        c.gridx=1; p.add(readOnly(visContatoField), c); y++;
-
-        c.gridx=0; c.gridy=y; p.add(label("Exibir empresa a docentes:", labelAlign), c);
-        c.gridx=1; p.add(readOnly(visEmpresaField), c); y++;
 
         return p;
     }
@@ -174,8 +168,6 @@ public class PerfilFrame extends JFrame {
             cidadeField.setText(nullToEmpty(perfil.getCidade()));
             estadoField.setText(nullToEmpty(perfil.getEstado()));
             paisField.setText(nullToEmpty(perfil.getPais()));
-            visContatoField.setText(perfil.isPermitirExibirContato() ? "Sim" : "Não");
-            visEmpresaField.setText(perfil.isPermitirExibirEmpresa() ? "Sim" : "Não");
         } else {
             dataNascField.setText("");
             anoField.setText("");
@@ -190,8 +182,6 @@ public class PerfilFrame extends JFrame {
             cidadeField.setText("");
             estadoField.setText("");
             paisField.setText("");
-            visContatoField.setText("");
-            visEmpresaField.setText("");
         }
     }
 

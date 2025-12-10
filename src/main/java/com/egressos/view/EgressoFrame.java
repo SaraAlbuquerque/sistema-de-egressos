@@ -42,9 +42,7 @@ public class EgressoFrame extends JFrame {
     private final JTextField estadoField        = new JTextField();
     private final JTextField paisField          = new JTextField();
 
-    // LGPD
-    private final JCheckBox cbVisContato = new JCheckBox("Permitir exibir meu contato a docentes");
-    private final JCheckBox cbVisEmpresa = new JCheckBox("Permitir exibir minha empresa a docentes");
+
 
     // Eventos do egresso
     private final DefaultTableModel eventosModel = new DefaultTableModel(
@@ -169,10 +167,7 @@ public class EgressoFrame extends JFrame {
         c.gridx=1; p.add(paisField, c);
         y++;
 
-        c.gridx=0; c.gridy=y; p.add(cbVisContato, c);
-        y++;
-        c.gridx=0; c.gridy=y; p.add(cbVisEmpresa, c);
-        y++;
+
 
 
         JButton editarBtn = new JButton("Editar perfil");
@@ -188,7 +183,6 @@ public class EgressoFrame extends JFrame {
         c.gridx=0; c.gridy=y; c.gridwidth = 2; c.anchor = GridBagConstraints.EAST;
         p.add(botoes, c);
 
-        // Campos de nome/e-mail nunca são editáveis pelo egresso
         nomeField.setEditable(false);
         emailField.setEditable(false);
 
@@ -210,8 +204,6 @@ public class EgressoFrame extends JFrame {
         cidadeField.setEditable(editavel);
         estadoField.setEditable(editavel);
         paisField.setEditable(editavel);
-        cbVisContato.setEnabled(editavel);
-        cbVisEmpresa.setEnabled(editavel);
     }
 
     private void carregarPerfil(){
@@ -246,8 +238,6 @@ public class EgressoFrame extends JFrame {
         cidadeField.setText(nullToEmpty(perfil.getCidade()));
         estadoField.setText(nullToEmpty(perfil.getEstado()));
         paisField.setText(nullToEmpty(perfil.getPais()));
-        cbVisContato.setSelected(perfil.isPermitirExibirContato());
-        cbVisEmpresa.setSelected(perfil.isPermitirExibirEmpresa());
     }
 
     private void salvarPerfil(){
@@ -301,8 +291,6 @@ public class EgressoFrame extends JFrame {
         perfil.setCidade(cidadeField.getText().trim());
         perfil.setEstado(estadoField.getText().trim());
         perfil.setPais(paisField.getText().trim());
-        perfil.setPermitirExibirContato(cbVisContato.isSelected());
-        perfil.setPermitirExibirEmpresa(cbVisEmpresa.isSelected());
 
         egressosDao.salvarTodos(todos);
         setPerfilEditavel(false);

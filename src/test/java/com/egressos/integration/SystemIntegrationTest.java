@@ -74,7 +74,7 @@ class SystemIntegrationTest {
         profile.setAreaAtuacao("TI");
         profile.setCidade("São Paulo");
         profile.setEmpresaAtual("Tech");
-        profile.setAnoConclusao(2021);
+        profile.setAnoFormacao(2021);
         profile.setPermitirExibirContato(true);
         egressosService.salvar(profile);
 

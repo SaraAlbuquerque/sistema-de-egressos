@@ -23,7 +23,7 @@ public class FirstAccessFrame extends JFrame {
     private JPasswordField novaSenhaField;
     private JPasswordField confirmaSenhaField;
     private JTextField dataNascimentoField;
-    private JTextField anoConclusaoField;
+    private JTextField anoFormacaoField;
     private JTextField githubField;
     private JTextField rede1Field;
     private JTextField rede2Field;
@@ -50,13 +50,13 @@ public class FirstAccessFrame extends JFrame {
         novaSenhaField      = new JPasswordField();
         confirmaSenhaField  = new JPasswordField();
         dataNascimentoField = new JTextField();
-        anoConclusaoField   = new JTextField();
+        anoFormacaoField   = new JTextField();
         githubField         = new JTextField();
         rede1Field          = new JTextField();
         rede2Field          = new JTextField();
 
         aplicarMascaraDataBR(dataNascimentoField);
-        aplicarMascaraAnoQuatroDigitos(anoConclusaoField);
+        aplicarMascaraAnoQuatroDigitos(anoFormacaoField);
 
         c.gridx = 0;
         c.gridy = y;
@@ -90,7 +90,7 @@ public class FirstAccessFrame extends JFrame {
         c.gridy = y;
         form.add(new JLabel("Ano de conclusão:"), c);
         c.gridx = 1;
-        form.add(anoConclusaoField, c);
+        form.add(anoFormacaoField, c);
         y++;
 
         c.gridx = 0;
@@ -154,7 +154,7 @@ public class FirstAccessFrame extends JFrame {
             return;
         }
 
-        String sAno = anoConclusaoField.getText().trim();
+        String sAno = anoFormacaoField.getText().trim();
         if (!sAno.matches("\\d{4}")) {
             JOptionPane.showMessageDialog(this,
                     "Ano de conclusão inválido..");
